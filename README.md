@@ -2,6 +2,8 @@
 
 YouTubeのコミュニティ投稿における「1 か月前」といった曖昧な日時表示を、ソースコードから取得した正確な日時（秒単位）に書き換えるUserScriptです。  
 
+Fetch and display exact timestamps (YYYY/MM/DD HH:mm:ss) for YouTube Community posts.  
+
 ## ✨ 特徴  
 - 🕒 **正確な表示**: 「2026/03/14 18:10:00」形式で秒まで表示  
 - 🎯 **ピンポイント**: コミュニティ投稿の個別ページでのみ動作  
