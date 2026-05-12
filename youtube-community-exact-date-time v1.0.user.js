@@ -36,11 +36,15 @@
     // 書き換え処理の本体
     async function updateCommunityDate() {
         // 1. コミュニティ投稿の個別ページ(/post/...)かチェック
-        if (!window.location.pathname.includes('/post/')) return;
+        if (!window.location.pathname.includes('/post/')) {
+            return;
+        }
 
         // 2. 既に書き換え済みならスキップ
         const target = document.querySelector('#published-time-text a');
-        if (!target || target.dataset.exactDateDone) return;
+        if (!target || target.dataset.exactDateDone) {
+            return;
+        }
 
         console.log("コミュニティ投稿を検知。正確な日時を取得します...");
 
@@ -52,8 +56,9 @@
             if (match && match[1]) {
                 const d = new Date(match[1]);
                 const f = (n) => String(n).padStart(2, '0');
-                const formatted = `${d.getFullYear()}/${f(d.getMonth() + 1)}/${f(d.getDate())} ` +
-                                 `${f(d.getHours())}:${f(d.getMinutes())}:${f(d.getSeconds())}`;
+                const formatted =
+                    `${d.getFullYear()}/${f(d.getMonth() + 1)}/${f(d.getDate())} ` +
+                    `${f(d.getHours())}:${f(d.getMinutes())}:${f(d.getSeconds())}`;
 
                 target.textContent = formatted;
                 target.dataset.exactDateDone = "true"; // 二重実行防止フラグ
