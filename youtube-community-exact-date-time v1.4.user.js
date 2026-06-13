@@ -4,7 +4,7 @@
 // @namespace      https://bsky.app/profile/neon-ai.art
 // @homepage       https://github.com/neon-aiart
 // @icon           data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛄</text></svg>
-// @version        1.3
+// @version        1.4
 // @description    Display exact "YYYY/MM/DD HH:mm:ss" date on YouTube community posts by fetching source HTML dynamically.
 // @description:ja YouTubeのコミュニティ投稿に、ソースから取得した正確な日時（秒単位）を表示します。一覧・個別ページ両対応。
 // @author         ねおん
@@ -33,10 +33,10 @@
 (function() {
     'use strict';
 
-    const VERSION = '1.3';
+    const VERSION = '1.4';
     const STORE_KEY = 'youtube-community-exact-date-time';
 
-    const DEBUG = true;
+    const DEBUG = false;
 
     let intersectionObserver = null;
     let mutationObserver = null;
@@ -66,7 +66,10 @@
 
         // すでに過去に取得済みのURLなら、fetchせずに記憶から一瞬で書き換える
         if (completedUrls.has(url)) {
-            targetLink.textContent = completedUrls.get(url);
+            // 記憶から戻すときも、ツールチップに元の相対日時をセットしておく
+            const data = completedUrls.get(url);
+            targetLink.title = data.originalText;
+            targetLink.textContent = data.formatted;
             return;
         }
 
@@ -86,8 +89,15 @@
                     `${d.getFullYear()}/${f(d.getMonth() + 1)}/${f(d.getDate())} ` +
                     `${f(d.getHours())}:${f(d.getMinutes())}:${f(d.getSeconds())}`;
 
+                // 書き換える前の元のテキスト（「2 か月前」など）をツールチップ（title）に保存
+                const originalText = targetLink.textContent;
+                targetLink.title = originalText;
+
                 targetLink.textContent = formatted;
-                completedUrls.set(url, formatted); // URLと日時のペアを記憶
+
+                // 記憶するデータに元のテキストも一緒に含める
+                completedUrls.set(url, { formatted, originalText, });
+
                 if (DEBUG) {
                     console.log("✅ 詳細日時書き換え完了:", formatted);
                 }
