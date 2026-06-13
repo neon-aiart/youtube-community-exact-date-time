@@ -119,13 +119,8 @@
                 return;
             }
 
-            const targetLink = entry.target;
-            if (targetLink.dataset.exactDateDone) {
-                intersectionObserver.unobserve(targetLink);
-                return;
-            }
-
             // リンクから対象の個別URLを取得
+            const targetLink = entry.target;
             const href = targetLink.getAttribute('href');
             if (!href || !href.includes('/post/')) {
                 return;
