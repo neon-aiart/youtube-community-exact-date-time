@@ -1,25 +1,62 @@
 # YouTube Community Exact Date & Time  
 
-YouTubeのコミュニティ投稿における「1 か月前」といった曖昧な日時表示を、ソースコードから取得した正確な日時（秒単位）に書き換えるUserScriptです  
+YouTubeのコミュニティ投稿における「○か月前」といった曖昧な日時表示を、ソースコードから取得した正確な日時（秒単位）に書き換えるUserScriptです  
 
 Fetch and display exact timestamps (YYYY/MM/DD HH:mm:ss) for YouTube Community posts.  
 
-## ✨ 特徴  
+## ✨ 特徴 / Features  
 
-* 🕒 **正確な表示**: 「2026/03/14 18:10:00」形式で秒まで表示  
-* 🎯 **ピンポイント**: コミュニティ投稿の個別ページでのみ動作  
-* 🚀 **SPA対応**: YouTubeのページ移動（リロードなし）にも追従  
-* 🛠️ **軽量**: 外部ライブラリ不要、YouTubeの内部変数をスキャン  
+### 🇯🇵  
 
-## 📦 インストール方法  
+* 🕒 **正確な表示**: 「2026/03/14 18:10:00」形式で秒まで正確に表示  
+* 🎯 **一覧・個別両対応**: チャンネルの「投稿」タブ（一覧）と、各投稿の個別ページの両方に対応  
+* 🚀 **SPA完全対応**: YouTube特有の、リロードを挟まないページ移動（画面遷移）や、スクロールによる追加読み込みにも自動追従  
+* 🛠️ **超軽量＆安全設計**: 画面に映った投稿だけを狙ってバックグラウンド通信を行うため、ブラウザやYouTubeサーバーに余計な負荷をかけません（高速スクロール時は自動スキップ）  
+* 💬 **ツールチップ機能**: 書き換え後の日時にマウスを乗せると、元の「〇ヶ月前」という公式の相対日時がツールチップで確認できます  
+
+### 🇺🇸  
+
+* 🕒 **Exact Timestamp**: Displays exact dates down to the second in the "YYYY/MM/DD HH:mm:ss" format.  
+* 🎯 **Full Compatibility**: Works seamlessly on both the channel's "Community" tab (feed list) and individual post pages.  
+* 🚀 **Full SPA Support**: Automatically tracks YouTube's unique single-page navigation (no reload required) and dynamic infinite scrolling.  
+* 🛠️ **Ultra-Lightweight & Safe**: Utilizes `IntersectionObserver` to trigger background fetches only for posts currently visible on screen, preventing unnecessary server load (automatically skips during fast scrolling).  
+* 💬 **Tooltip Fallback**: Hovering over the modified timestamp reveals the original, official relative time (e.g., "2 months ago") via a native browser tooltip.  
+
+## 📦 インストール方法 ＆ 使い方  
 
 1. ブラウザに [Tampermonkey](https://tampermonkey.net) などの拡張機能をインストールします  
 2. [Greasy Fork](https://greasyfork.org/ja/scripts/577630) にアクセスし、「インストール」ボタンを押してください  
-3. YouTubeのコミュニティ投稿ページ（`/post/`で始まるURL）を開くと自動的に適用されます  
+3. YouTubeのコミュニティページ（`/posts` または `/post/...`）を開くと自動的に適用されます  
 
-## 🔍 仕組み  
+## 🔍 仕組み / How it works  
 
-YouTubeのDOMから消去されてしまう `datePublished` メタデータを、`fetch` を用いてバックグラウンドでソースコードから再取得し、表示を書き換えます  
+### 🇯🇵  
+
+YouTubeの標準システムでは画面描画時に消去・加工されてしまう投稿日時の生データを、ブラウザの交差監視（`IntersectionObserver`）と非同期通信を用いた**独自のバックグラウンド解析ロジック**によって、リアルタイムに再構築・復元しています  
+
+### 🇺🇸  
+
+Our **proprietary background analysis logic** utilizes browser intersection tracking (`IntersectionObserver`) and asynchronous processing to dynamically reconstruct and restore the raw metadata, which is normally stripped or formatted by YouTube's default client rendering interface.  
+
+---
+
+## 📝 更新履歴 (Changelog)  
+
+### v1.4 (Current Release)  
+
+✅ ツールチップで元の相対日時を表示  
+
+### v1.3 (UnRelease)  
+
+✅ 二重実行防止で２回目以降の書き換えができていなかったバグを修正  
+
+### v1.2 (UnRelease)  
+
+✅ 一覧にも対応  
+
+### v1.0  
+
+✅ 初リリース  
 
 ---
 
