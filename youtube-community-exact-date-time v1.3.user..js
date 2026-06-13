@@ -4,7 +4,7 @@
 // @namespace      https://bsky.app/profile/neon-ai.art
 // @homepage       https://github.com/neon-aiart
 // @icon           data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛄</text></svg>
-// @version        1.2
+// @version        1.3
 // @description    Display exact "YYYY/MM/DD HH:mm:ss" date on YouTube community posts by fetching source HTML dynamically.
 // @description:ja YouTubeのコミュニティ投稿に、ソースから取得した正確な日時（秒単位）を表示します。一覧・個別ページ両対応。
 // @author         ねおん
@@ -33,18 +33,40 @@
 (function() {
     'use strict';
 
-    const VERSION = '1.2';
+    const VERSION = '1.3';
     const STORE_KEY = 'youtube-community-exact-date-time';
 
     const DEBUG = true;
 
     let intersectionObserver = null;
     let mutationObserver = null;
-    const fetchTimers = new Map(); // 高速スクロール時の過剰通信防止タイマー管理
+    const fetchTimers = new Map();   // 高速スクロール時の過剰通信防止タイマー管理
+    const completedUrls = new Map(); // 書き換え完了したURLと日時のペアを記憶
+
+    function getFormattedDateTime() {
+        const now = new Date();
+
+        const pad = (num) => num.toString().padStart(2, '0'); // ２桁にする関数
+
+        const y = now.getFullYear();
+        const m = pad(now.getMonth() + 1);
+        const d = pad(now.getDate());
+        const h = pad(now.getHours());
+        const min = pad(now.getMinutes());
+        const s = pad(now.getSeconds());
+
+        return `${y}/${m}/${d} ${h}:${min}:${s}`;
+    }
 
     // 個別の fetch ＆ 書き換えロジック
     async function fetchAndReplace(targetLink, url) {
-        if (!targetLink || targetLink.dataset.exactDateDone) {
+        if (!targetLink) {
+            return;
+        }
+
+        // すでに過去に取得済みのURLなら、fetchせずに記憶から一瞬で書き換える
+        if (completedUrls.has(url)) {
+            targetLink.textContent = completedUrls.get(url);
             return;
         }
 
@@ -61,11 +83,11 @@
 
                 const f = (n) => String(n).padStart(2, '0');
                 const formatted =
-                                `${d.getFullYear()}/${f(d.getMonth() + 1)}/${f(d.getDate())} ` +
-                                `${f(d.getHours())}:${f(f(d.getMinutes()))}:${f(d.getSeconds())}`;
+                    `${d.getFullYear()}/${f(d.getMonth() + 1)}/${f(d.getDate())} ` +
+                    `${f(d.getHours())}:${f(d.getMinutes())}:${f(d.getSeconds())}`;
 
                 targetLink.textContent = formatted;
-                targetLink.dataset.exactDateDone = "true"; // 二重実行防止フラグ
+                completedUrls.set(url, formatted); // URLと日時のペアを記憶
                 if (DEBUG) {
                     console.log("✅ 詳細日時書き換え完了:", formatted);
                 }
@@ -100,6 +122,15 @@
             }
             const fullUrl = window.location.origin + href;
 
+            if (DEBUG) {
+                console.groupCollapsed(`[DEBUG] [${getFormattedDateTime()}] handleIntersection`);
+                console.log('entry.target:', entry.target);
+                console.log('targetLink:', targetLink);
+                console.log('window.location.href:', window.location.href);
+                console.log('window.location.origin + href:', fullUrl);
+                console.groupEnd();
+            }
+
             // 0.3秒画面に留まったら fetch 実行（スクロールで流し見している時は発火しない）
             const timer = setTimeout(() => {
                 fetchAndReplace(targetLink, fullUrl);
@@ -123,25 +154,30 @@
         const links = document.querySelectorAll('#published-time-text a[href*="/post/"]');
 
         links.forEach(link => {
-            // すでに書き換え済み、または監視中のものはスキップ
-            if (link.dataset.exactDateDone || link.dataset.exactDateObserved) {
+            // テキストにすでに「/」や「:」が含まれていれば、記憶になくても書き換え済みとみなす
+            if (link.textContent.includes('/') || link.textContent.includes(':')) {
                 return;
             }
 
-            link.dataset.exactDateObserved = "true";
+            // ページ遷移時は observed フラグを無視して再登録できるようにする
             intersectionObserver.observe(link);
         });
     }
 
     // 初期化処理
     function init() {
-        // 既存の監視があれば一度リセット
+        // 画面遷移のたびに、監視中フラグのリセットと再開を行う
         if (intersectionObserver) {
             intersectionObserver.disconnect();
         }
         if (mutationObserver) {
             mutationObserver.disconnect();
         }
+
+        // 画面遷移時は、画面上の全リンクのobserved属性を綺麗に消し去る
+        document.querySelectorAll('#published-time-text a').forEach(el => {
+            el.removeAttribute('data-exact-date-observed');
+        });
 
         // 1. 画面表示監視 (IntersectionObserver) の生成
         intersectionObserver = new IntersectionObserver(handleIntersection, {
