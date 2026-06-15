@@ -40,6 +40,18 @@ Our **proprietary background analysis logic** utilizes browser intersection trac
 
 ---
 
+## 🎨 インフォグラフィック (Infographic)  
+
+<img src="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time" alt="infographic" width="100%">
+
+<details><summary>
+    🌐 Other Language Version
+</summary>
+<img src="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time?details" alt="infographic details" width="100%">
+</details>
+
+---
+
 ## 📝 更新履歴 (Changelog)  
 
 ### v1.4 (Current Release)  
