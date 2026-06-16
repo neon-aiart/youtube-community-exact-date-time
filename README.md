@@ -52,8 +52,6 @@ Our **proprietary background analysis logic** utilizes browser intersection trac
 <img src="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time?details" alt="infographic details" width="100%">
 </details>
 
-[🔄 キャッシュをパージする](https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time/purge-and-close)
-
 ---
 
 ## 📝 更新履歴 (Changelog)  
