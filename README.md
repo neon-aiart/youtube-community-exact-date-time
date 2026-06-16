@@ -42,15 +42,15 @@ Our **proprietary background analysis logic** utilizes browser intersection trac
 
 ## 🎨 インフォグラフィック (Infographic)  
 
-<img src="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time" alt="infographic" width="100%">
+<a href="ttps://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time/purge-and-close" target="_blank" rel="noopener noreferrer">
+  <img src="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time" alt="infographic" width="100%">
+</a>
 
 <details><summary>
     🌐 Other Language Version
 </summary>
 <img src="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time?details" alt="infographic details" width="100%">
 </details>
-
-<!-- [🔄 キャッシュをパージする](https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time/purge-and-close) -->
 
 ---
 
