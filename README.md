@@ -42,7 +42,7 @@ Our **proprietary background analysis logic** utilizes browser intersection trac
 
 ## 🎨 インフォグラフィック (Infographic)  
 
-<a href="ttps://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time/purge-and-close" target="_blank" rel="noopener noreferrer">
+<a href="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time/purge-and-close" target="_blank" rel="noopener noreferrer">
   <img src="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time" alt="infographic" width="100%">
 </a>
 
