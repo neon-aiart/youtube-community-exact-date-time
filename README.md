@@ -40,6 +40,105 @@ Our **proprietary background analysis logic** utilizes browser intersection trac
 
 ---
 
+## 🇯🇵 ⚠️ 瞬時にすべてが書き変わることの危険性  
+
+### 🕒 なぜ「一瞬」ではなく「0.3秒」のラグがあるのか  
+
+既存の類似ツールの中には、ページを開いた瞬間にすべての投稿日時が一瞬で書き換わるものがあります  
+一見するとストレスフリーで優れているように見えるかもしれません  
+
+しかし、**「一瞬で変わる」ことの代償として、その裏では非常に危険な処理が行われています**  
+
+書き換えに遅延があるからといって通信に処理がかかったり低機能というわけではなく  
+一瞬ですべてを書き換えるよりもそこに**ひと手間**かけているからこその遅延なのです  
+
+YouTubeコミュニティの正確な日時を取得するには、裏側で投稿の数だけ個別ページをバックグラウンドで読み込む必要があります  
+画面に映るすべての投稿を「一瞬」で書き換えるツールは、**YouTubeサーバーに対して、短時間に大量の自動リクエスト（スクレイピング）を一斉に送りつけています**  
+
+これは、YouTubeの不正アクセス検知システムから見れば **「悪質なスパムボット」と全く同じ挙動**です  
+最悪の場合、あなたの大切な**YouTubeアカウントの停止（BAN）** や、IPアドレスのブロックを引き起こす引き金になりかねません  
+さらに、力任せにHTML要素をごっそり上書きするため、**投稿の詳細ページや返信欄へ飛ぶための重要なリンク（機能）まで一緒に破壊して消し去ってしまう**という致命的な欠陥も抱えています  
+
+---
+
+### 🛡️ あなたのアカウントを守るために設計された「0.3秒の安全装置」  
+
+本スクリプト（`YouTube Community Exact Date & Time`）で体感する0.3秒のラグは、通信が遅いからでも、コードが劣っているからでもありません  
+あなたのアカウントとYouTubeの標準機能を守るために、緻密に計算して設計された「安全装置（Safetyロジック）」です  
+
+本スクリプトは、以下の多段的な独自ロジックによって動作しています  
+
+* **視線追従型アクセス:**  
+画面外にある見てもいない投稿に対して、無駄な通信は一切行いません  
+あなたの画面（視界）に入った投稿だけをピンポイントに検知します  
+
+* **0.3秒の人間擬態化ディレイ:**  
+投稿が画面に入ってから「0.3秒間」留まった時（ユーザーが読もうとしてスクロールを止めた時）に、安全を確保しながら順次処理を行います  
+タイムラインを高速スクロールで流し見している間の無駄な通信はすべて自動でキャンセルされます  
+
+これにより、YouTube側からはスパムボットではなく「人間が普通にページを読んでいる自然なアクセスパターン」にしか見えなくなり、BANリスクを極限までゼロに抑え込んでいます  
+もちろん、テキストノードだけをピンポイントで書き換えるため、**YouTubeの標準リンクを破壊することも絶対にありません**
+
+---
+
+### 📊 比較表：見た目の騙されやすさの真実
+
+| 評価項目 | 既存の類似ツール（一瞬で変わる方） | 本スクリプト（ねおん版） |
+| --- | --- | --- |
+| **第一印象の体感速度** | 🚀 一瞬（ストレスフリーに見える） | 🕒 0.3秒のラグ（遅く見える） |
+| **通信のコントロール** | ❌ 画面外も含め一斉大量リクエスト送信 | ⭕ 画面内の要素だけを狙う賢い分散処理 |
+| **アカウント安全度** | 🔥 **極めて危険（ボット判定によるBANリスク）** | 🛡️ **安全（人間らしいアクセスに擬態）** |
+| **YouTubeのリンク機能** | ❌ 破壊される（詳細や返信に飛べなくなる） | ⭕ 完全に維持（テキストだけを美しく変更） |
+| **利用料金** | 💸 高機能フォーマットは有料 | 💎 永久に完全無料 |
+
+---
+
+## 🇺🇸 ⚠️ Risks of Instant Rewriting  
+
+### 🕒 Why is there a "0.3-second" lag instead of being "instant"?  
+
+Some similar tools premium or otherwise rewrite all posting dates the exact millisecond you open the page  
+At first glance this might seem seamless and superior  
+
+However, **this "instant" change comes at a very dangerous cost behind the scenes** Just because there is a slight lag in rewriting does not mean the script is slow or poorly coded  
+In fact, it takes **an extra step of care and precision** compared to tools that just overwrite everything instantly  
+
+To display the exact time on YouTube Community posts, tools that rewrite everything instantly are **bombarding the YouTube server with a massive burst of automated requests simultaneously** From the perspective of YouTube's anti-bot detection systems, this looks **identical to a malicious spam bot** In the worst-case scenario, this can trigger a **ban on your precious YouTube account** or an IP address block  
+Furthermore, because those tools forcefully overwrite the entire HTML element, they suffer from a critical flaw that **destroys the essential links needed to jump to the post details or reply sections**  
+
+---
+
+### 🛡️ The "0.3-second Safety Logic" designed to protect your account  
+
+The 0.3-second lag you experience with this script (`YouTube Community Exact Date & Time`) is not due to slow communication or inferior code  
+It is a finely calculated "Safety Logic" built from the ground up to protect your account and preserve YouTube's native features  
+
+This script operates under a specialized, independent logic that is highly resilient against external analysis  
+
+* **View-Tracking Access:**  
+No useless communication is ever made for posts hidden outside your screen. It pinpoints and detects only the posts that actually enter your viewport  
+
+* **0.3-second Human-Mimicking Delay:**  
+Only when a post stays on your screen for "0.3 seconds" (meaning the user has paused scrolling to read) does the script safely execute the process sequentially  
+Any unnecessary traffic generated while fast-scrolling through the timeline is automatically canceled  
+
+As a result, your browser behaves like a "natural human reading a page" rather than a spam bot, minimizing any ban risks to absolute zero  
+Of course, since it beautifully modifies only the text nodes without breaking the original structure, **it will never destroy YouTube's standard links**  
+
+---
+
+### 📊 Comparison: The Truth Behind Visual Deception  
+
+| Evaluation Item | Existing Similar Tools (Instant) | This Script (Neon Edition) |
+| --- | --- | --- |
+| **First Impression Speed** | 🚀 Instant (Looks stress-free) | 🕒 0.3s Lag (Looks slower) |
+| **Traffic Control** | ❌ Blasts bulk requests even outside the screen | ⭕ Smart distributed processing targeting visible elements only |
+| **Account Safety** | 🔥 **Highly Dangerous (Ban risk via bot detection)** | 🛡️ **Safe (Mimics natural human browsing)** |
+| **YouTube Link Feature** | ❌ Destroyed (Cannot access details/replies) | ⭕ Fully Preserved (Beautifully changes text only) |
+| **Pricing** | 💸 Advanced formats require a paid subscription | 💎 100% Free Forever |
+
+---
+
 ## 🎨 インフォグラフィック (Infographic)  
 
 <img src="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time" alt="infographic" width="100%">
