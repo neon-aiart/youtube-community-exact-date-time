@@ -1,4 +1,4 @@
-# YouTube Community Exact Date & Time  
+# ⚡ YouTube Community Exact Date & Time  
 
 YouTubeのコミュニティ投稿における「○か月前」といった曖昧な日時表示を、ソースコードから取得した正確な日時（秒単位）に書き換えるUserScriptです  
 
