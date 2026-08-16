@@ -4,6 +4,22 @@ YouTubeのコミュニティ投稿における「○か月前」といった曖�
 
 Fetch and display exact timestamps (YYYY/MM/DD HH:mm:ss) for YouTube Community posts.  
 
+---
+
+## 🎨 インフォグラフィック (Infographic)  
+
+<img src="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time" alt="infographic" width="100%">
+
+<details><summary>
+    🌐 Other Language Version
+</summary>
+<img src="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time?details" alt="infographic details" width="100%">
+</details>
+
+<!-- <a href="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time/purge-and-close" target="_blank" rel="noopener noreferrer">🗑️ Camo Purge</a> -->
+
+---
+
 ## ✨ 特徴 (Features)  
 
 ### 🇯🇵  
@@ -136,20 +152,6 @@ Of course, since it beautifully modifies only the text nodes without breaking th
 | **Account Safety** | 🔥 **Highly Dangerous (Ban risk via bot detection)** | 🛡️ **Safe (Mimics natural human browsing)** |
 | **YouTube Link Feature** | ❌ Destroyed (Cannot access details/replies) | ⭕ Fully Preserved (Beautifully changes text only) |
 | **Pricing** | 💸 Advanced formats require a paid subscription | 💎 100% Free Forever |
-
----
-
-## 🎨 インフォグラフィック (Infographic)  
-
-<img src="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time" alt="infographic" width="100%">
-
-<details><summary>
-    🌐 Other Language Version
-</summary>
-<img src="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time?details" alt="infographic details" width="100%">
-</details>
-
-<!-- <a href="https://info-pick.neon-aiillust.workers.dev/youtube-community-exact-date-time/purge-and-close" target="_blank" rel="noopener noreferrer">🗑️ Camo Purge</a> -->
 
 ---
 
