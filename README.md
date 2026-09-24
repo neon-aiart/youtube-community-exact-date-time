@@ -41,7 +41,7 @@ Fetch and display exact timestamps (YYYY/MM/DD HH:mm:ss) for YouTube Community p
 ## 📦 インストール方法 ＆ 使い方 (How to Install & Use)  
 
 1. ブラウザに [Tampermonkey](https://tampermonkey.net) などの拡張機能をインストールします  
-2. [Greasy Fork](https://greasyfork.org/ja/scripts/577630) にアクセスし、「インストール」ボタンを押してください  
+2. [Greasy Fork](https://greasyfork.org/scripts/577630) にアクセスし、「インストール」ボタンを押してください  
 3. YouTubeのコミュニティページ（`/posts` または `/post/...`）を開くと自動的に適用されます  
 
 ## 🔍 仕組み (How it works)  
