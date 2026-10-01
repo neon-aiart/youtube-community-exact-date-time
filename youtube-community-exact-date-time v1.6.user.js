@@ -37,7 +37,7 @@
 
     const VERSION = '1.6';
 
-    const DEBUG = true;
+    const DEBUG = false;
     if (DEBUG) console.log(`[${getFormattedDateTime()}] ⚡ YouTube Community Exact Date & Time v${VERSION}: デバッグモード`);
 
     // 監視対象とするURLパスのリスト
