@@ -125,7 +125,7 @@ YouTubeコミュニティの正確な日時を取得するには、裏側で投�
 
 ---
 
-### ⛔ コミュニティ投稿の返信（コメント）について  
+### ⛔ 個別ポストページの返信（コメント）について  
 
 返信コメントは、現状、絶対日時を取得する方法が存在しないため書き換え対象から除外しています  
 
@@ -237,7 +237,7 @@ Of course, since it beautifully modifies only the text nodes without breaking th
 
 ---
 
-### ⛔ Regarding Replies to Community Posts  
+### ⛔ Regarding Replies on Individual Post Pages  
 
 Replies are currently excluded from processing because there is no way to obtain their exact date and time.  
 
