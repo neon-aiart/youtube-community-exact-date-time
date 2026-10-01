@@ -6,7 +6,7 @@
 // @description:en Displays precise date and time (down to the second) on YouTube posts, supporting the Posts tab, Community page, and individual posts.
 // @description:ja YouTubeの投稿に、正確な日時（秒単位）を表示します、投稿・コミュニティ・個別ページ対応
 // @icon           data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>
-// @version        1.5
+// @version        1.6
 // @author         ねおん
 // @namespace      https://bsky.app/profile/neon-ai.art
 // @homepage       https://github.com/neon-aiart
@@ -35,11 +35,9 @@
 (function() {
     'use strict';
 
-    const VERSION = '1.5';
+    const VERSION = '1.6';
 
-    const STORE_KEY = 'youtube-community-exact-date-time'; // 未使用
-
-    const DEBUG = false;
+    const DEBUG = true;
     if (DEBUG) console.log(`[${getFormattedDateTime()}] ⚡ YouTube Community Exact Date & Time v${VERSION}: デバッグモード`);
 
     // 監視対象とするURLパスのリスト
@@ -74,6 +72,22 @@
         return `${y}/${m}/${d} ${h}:${min}:${s}`;
     }
 
+    // 日時フォーマット関数
+    function formatTheDate(d) {
+        const userLocale = (DATE_FORMAT_LOCALE === 'auto') ? navigator.language : DATE_FORMAT_LOCALE;
+        const isJapanese = userLocale.startsWith('ja');
+
+        return new Intl.DateTimeFormat(userLocale, {
+            year: 'numeric',
+            month: isJapanese ? '2-digit' : 'short',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false,
+        }).format(d);
+    }
+
     // 個別の fetch ＆ 書き換えロジック
     async function fetchAndReplace(targetLink, url) {
         if (!targetLink) return;
@@ -87,6 +101,19 @@
             return;
         }
 
+        // URLから子コメントID (lc=...) を抽出
+        let commentId = null;
+        try {
+            const urlObject = new URL(url, window.location.origin);
+            commentId = urlObject.searchParams.get('lc');
+        } catch (e) {
+            void e; // 何もしない
+        }
+        if (commentId) {
+            if (DEBUG) console.log("[DEBUG] ⛔ 返信コメントのためキャンセル:", url);
+            return;
+        }
+
         try {
             const response = await fetch(url);
             const html = await response.text();
@@ -96,21 +123,7 @@
                 const d = new Date(match[1]);
                 if (isNaN(d.getTime())) return;
 
-                // 使用するロケール（言語）の決定
-                const userLocale = (DATE_FORMAT_LOCALE === 'auto') ? navigator.language : DATE_FORMAT_LOCALE;
-
-                // 日本語（ja または ja-JP など）かどうかで month の指定を切り替える
-                const isJapanese = userLocale.startsWith('ja');
-
-                const formatted = new Intl.DateTimeFormat(userLocale, {
-                    year: 'numeric',
-                    month: isJapanese ? '2-digit' : 'short', // 日本語なら数字2桁、それ以外なら short (Oct 等)
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: false, // 24時間表記にする場合
-                }).format(d);
+                const formatted = formatTheDate(d);
 
                 // 書き換える前の元のテキスト（「2 か月前」など）をツールチップ（title）に保存
                 const originalText = targetLink.textContent;
@@ -121,7 +134,9 @@
                 // 記憶するデータに元のテキストも一緒に含める
                 completedUrls.set(url, { formatted, originalText, });
 
-                if (DEBUG) console.log("✅ 詳細日時書き換え完了:", formatted);
+                if (DEBUG) console.log("[DEBUG] ✅ 詳細日時書き換え完了:", formatted);
+            } else {
+                if (DEBUG) console.warn("[DEBUG] ⚠️ 該当する日時データが見つかりませんでした。");
             }
         } catch (e) {
             console.error("日時取得失敗:", e);
@@ -207,10 +222,7 @@
             scanAndObserve();
         });
 
-        mutationObserver.observe(document.body, {
-            childList: true,
-            subtree: true,
-        });
+        mutationObserver.observe(document.body, { childList: true, subtree: true, });
 
         // 初回スキャンを実行
         scanAndObserve();

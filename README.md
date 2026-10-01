@@ -125,6 +125,17 @@ YouTubeコミュニティの正確な日時を取得するには、裏側で投�
 
 ---
 
+### ⛔ コミュニティ投稿の返信（コメント）について  
+
+返信コメントは、現状、絶対日時を取得する方法が存在しないため書き換え対象から除外しています  
+
+#### 技術的な背景（メモ）  
+
+* YouTubeの仕様上、返信コメントのデータにはサーバーから最初から「〇日前」という相対表記のテキストしか送られてきません  
+* データの軽量化・SEO対象外といったYouTube側の設計により、通信やメモリ上にも絶対日時の数値（タイムスタンプ）が存在しないため、親ポストのみを対象としています  
+
+---
+
 ## 🇺🇸  
 
 ### ✨ Features  
@@ -226,11 +237,26 @@ Of course, since it beautifully modifies only the text nodes without breaking th
 
 ---
 
+### ⛔ Regarding Replies to Community Posts  
+
+Replies are currently excluded from processing because there is no way to obtain their exact date and time.  
+
+#### Technical Background (Note)  
+
+* Due to YouTube's specifications, reply data is only sent from the server as relative time strings (e.g., "X days ago").  
+* Designed by YouTube for lightweight data transfer and non-SEO targeting, exact timestamp values do not exist in network traffic or memory, making only parent posts eligible for processing.  
+
+---
+
 ## 📝 更新履歴 (Changelog)  
+
+### v1.7 and later (Upcoming Tasks / Backlog)  
+
+No Tasks...  
 
 ### v1.6 and later (Upcoming Tasks / Backlog)  
 
-No Tasks...  
+✅ 返信コメントを対象外に修正  
 
 ### v1.5 (Current Release)  
 
