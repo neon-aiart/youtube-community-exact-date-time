@@ -263,6 +263,7 @@ No Tasks...
 ### v1.6 (Current Release)  
 
 ✅ 返信コメントを対象外に修正  
+&emsp; Special Thanks to @ToKoga (Issue #1)
 
 ### v1.5  
 
