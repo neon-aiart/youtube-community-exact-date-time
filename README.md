@@ -13,6 +13,12 @@ YouTubeの投稿に、正確な日時（秒単位）を表示します
 Displays precise date and time (down to the second) on YouTube posts,  
 supporting the Posts tab, Community page, and individual posts.  
 
+⭐ [スター](https://github.com/neon-aiart/youtube-community-exact-date-time)をポチッとお願いします✨ (Please hit the [Star] button!)  
+
+<a href="https://b.hatena.ne.jp/entry/panel/?url=https://github.com/neon-aiart/youtube-community-exact-date-time"><img src="https://b.hatena.ne.jp/favicon.ico" width="20" height="20" alt="📖"></a> ポチッと[ブックマーク](https://b.hatena.ne.jp/entry/panel/?url=https://github.com/neon-aiart/youtube-community-exact-date-time)をお願い致します✨ (Please click the [Bookmark] button!)  
+
+<br clear="all">
+
 ---
 
 ## 🎨 インフォグラフィック (Infographic)  
