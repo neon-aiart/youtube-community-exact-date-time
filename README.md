@@ -254,11 +254,11 @@ Replies are currently excluded from processing because there is no way to obtain
 
 No Tasks...  
 
-### v1.6 and later (Upcoming Tasks / Backlog)  
+### v1.6 (Current Release)  
 
 ✅ 返信コメントを対象外に修正  
 
-### v1.5 (Current Release)  
+### v1.5  
 
 ✅ 対応ページに `/community` を追加  
 ✅ ロケール設定に応じた日付フォーマット変更機能を追加  
