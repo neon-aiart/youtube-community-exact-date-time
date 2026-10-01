@@ -1,8 +1,17 @@
 # ⚡ YouTube Community Exact Date & Time  
 
-YouTubeのコミュニティ投稿における「○か月前」といった曖昧な日時表示を、ソースコードから取得した正確な日時（秒単位）に書き換えるUserScriptです  
+[![Version](https://img.shields.io/badge/version-1.5-orange.svg)](https://github.com/neon-aiart/youtube-community-exact-date-time)
+[![License](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://polyformproject.org/licenses/noncommercial/1.0.0/)
 
-Fetch and display exact timestamps (YYYY/MM/DD HH:mm:ss) for YouTube Community posts.  
+🇯🇵  
+
+YouTubeの投稿に、正確な日時（秒単位）を表示します  
+投稿・コミュニティ・個別ページ対応  
+
+🇺🇸  
+
+Displays precise date and time (down to the second) on YouTube posts,  
+supporting the Posts tab, Community page, and individual posts.  
 
 ---
 
@@ -20,45 +29,52 @@ Fetch and display exact timestamps (YYYY/MM/DD HH:mm:ss) for YouTube Community p
 
 ---
 
-## ✨ 特徴 (Features)  
+## 🇯🇵  
 
-### 🇯🇵  
+### ✨ 特徴  
 
-* 🕒 **正確な表示**: 「2026/03/14 18:10:00」形式で秒まで正確に表示  
-* 🎯 **一覧・個別両対応**: チャンネルの「投稿」タブ（一覧）と、各投稿の個別ページの両方に対応  
+* 🕒 **正確な表示**: 秒単位の正確な日時を表示（言語設定に応じたフォーマットに対応）  
+* 🎯 **投稿・コミュニティ・個別ページ対応**: チャンネルの「投稿」タブ、「コミュニティ」ページ、各投稿の個別ページに対応  
 * 🚀 **SPA完全対応**: YouTube特有の、リロードを挟まないページ移動（画面遷移）や、スクロールによる追加読み込みにも自動追従  
 * 🛠️ **超軽量＆安全設計**: 画面に映った投稿だけを狙ってバックグラウンド通信を行うため、ブラウザやYouTubeサーバーに余計な負荷をかけません（高速スクロール時は自動スキップ）  
 * 💬 **ツールチップ機能**: 書き換え後の日時にマウスを乗せると、元の「〇ヶ月前」という公式の相対日時がツールチップで確認できます  
 
-### 🇺🇸  
+---
 
-* 🕒 **Exact Timestamp**: Displays exact dates down to the second in the "YYYY/MM/DD HH:mm:ss" format.  
-* 🎯 **Full Compatibility**: Works seamlessly on both the channel's "Community" tab (feed list) and individual post pages.  
-* 🚀 **Full SPA Support**: Automatically tracks YouTube's unique single-page navigation (no reload required) and dynamic infinite scrolling.  
-* 🛠️ **Ultra-Lightweight & Safe**: Utilizes `IntersectionObserver` to trigger background fetches only for posts currently visible on screen, preventing unnecessary server load (automatically skips during fast scrolling).  
-* 💬 **Tooltip Fallback**: Hovering over the modified timestamp reveals the original, official relative time (e.g., "2 months ago") via a native browser tooltip.  
-
-## 📦 インストール方法 ＆ 使い方 (How to Install & Use)  
+### 📦 インストール方法 ＆ 使い方  
 
 1. ブラウザに [Tampermonkey](https://tampermonkey.net) などの拡張機能をインストールします  
 2. [Greasy Fork](https://greasyfork.org/scripts/577630) にアクセスし、「インストール」ボタンを押してください  
-3. YouTubeのコミュニティページ（`/posts` または `/post/...`）を開くと自動的に適用されます  
-
-## 🔍 仕組み (How it works)  
-
-### 🇯🇵  
-
-YouTubeの標準システムでは画面描画時に消去・加工されてしまう投稿日時の生データを、ブラウザの交差監視（`IntersectionObserver`）と非同期通信を用いた**独自のバックグラウンド解析ロジック**によって、リアルタイムに再構築・復元しています  
-
-### 🇺🇸  
-
-Our **proprietary background analysis logic** utilizes browser intersection tracking (`IntersectionObserver`) and asynchronous processing to dynamically reconstruct and restore the raw metadata, which is normally stripped or formatted by YouTube's default client rendering interface.  
+3. YouTubeの「投稿」(`/posts`)、「コミュニティ」(`/community`)、各投稿の個別ページ（`/post/...`）を開くと自動的に適用されます  
 
 ---
 
-## 🇯🇵 ⚠️ 瞬時にすべてが書き変わることの危険性  
+### 🛠️ ちょこっとカスタマイズ  
 
-### 🕒 なぜ「一瞬」ではなく「0.3秒」のラグがあるのか  
+スクリプトのコードを直接編集することで、日時の表示フォーマットを変更できます  
+コード内の `DATE_FORMAT_LOCALE` の値を `'auto'` からお好みの設定に変更してください  
+
+* `'auto'`: ブラウザの言語設定に従う（デフォルト）  
+* `'ja-JP'`: 年/月/日（数字のみ）  
+* `'en-US'`: 月(略称) 日, 年（例: Oct 01, 2026）  
+* `'en-GB'`: 日 月(略称) 年（例: 01 Oct 2026）  
+
+```js
+// 設定例：USフォーマットに固定する場合
+const DATE_FORMAT_LOCALE = 'en-US';
+```
+
+---
+
+### 🔍 仕組み  
+
+YouTubeの標準システムでは画面描画時に消去・加工されてしまう投稿日時の生データを、ブラウザの交差監視（`IntersectionObserver`）と非同期通信を用いた**独自のバックグラウンド解析ロジック**によって、リアルタイムに再構築・復元しています  
+
+---
+
+### ⚠️ 瞬時にすべてが書き変わることの危険性  
+
+#### 🕒 なぜ「一瞬」ではなく「0.3秒」のラグがあるのか  
 
 既存の類似ツールの中には、ページを開いた瞬間にすべての投稿日時が一瞬で書き換わるものがあります  
 一見するとストレスフリーで優れているように見えるかもしれません  
@@ -77,7 +93,7 @@ YouTubeコミュニティの正確な日時を取得するには、裏側で投�
 
 ---
 
-### 🛡️ あなたのアカウントを守るために設計された「0.3秒の安全装置」  
+#### 🛡️ あなたのアカウントを守るために設計された「0.3秒の安全装置」  
 
 本スクリプト（`YouTube Community Exact Date & Time`）で体感する0.3秒のラグは、通信が遅いからでも、コードが劣っているからでもありません  
 あなたのアカウントとYouTubeの標準機能を守るために、緻密に計算して設計された「安全装置（Safetyロジック）」です  
@@ -93,11 +109,11 @@ YouTubeコミュニティの正確な日時を取得するには、裏側で投�
 タイムラインを高速スクロールで流し見している間の無駄な通信はすべて自動でキャンセルされます  
 
 これにより、YouTube側からはスパムボットではなく「人間が普通にページを読んでいる自然なアクセスパターン」にしか見えなくなり、BANリスクを極限までゼロに抑え込んでいます  
-もちろん、テキストノードだけをピンポイントで書き換えるため、**YouTubeの標準リンクを破壊することも絶対にありません**
+もちろん、テキストノードだけをピンポイントで書き換えるため、**YouTubeの標準リンクを破壊することも絶対にありません**  
 
 ---
 
-### 📊 比較表：見た目の騙されやすさの真実
+#### 📊 比較表：見た目の騙されやすさの真実  
 
 | 評価項目 | 既存の類似ツール（一瞬で変わる方） | 本スクリプト（ねおん版） |
 | --- | --- | --- |
@@ -109,41 +125,96 @@ YouTubeコミュニティの正確な日時を取得するには、裏側で投�
 
 ---
 
-## 🇺🇸 ⚠️ Risks of Instant Rewriting  
+## 🇺🇸  
 
-### 🕒 Why is there a "0.3-second" lag instead of being "instant"?  
+### ✨ Features  
 
-Some similar tools premium or otherwise rewrite all posting dates the exact millisecond you open the page  
-At first glance this might seem seamless and superior  
-
-However, **this "instant" change comes at a very dangerous cost behind the scenes** Just because there is a slight lag in rewriting does not mean the script is slow or poorly coded  
-In fact, it takes **an extra step of care and precision** compared to tools that just overwrite everything instantly  
-
-To display the exact time on YouTube Community posts, tools that rewrite everything instantly are **bombarding the YouTube server with a massive burst of automated requests simultaneously** From the perspective of YouTube's anti-bot detection systems, this looks **identical to a malicious spam bot** In the worst-case scenario, this can trigger a **ban on your precious YouTube account** or an IP address block  
-Furthermore, because those tools forcefully overwrite the entire HTML element, they suffer from a critical flaw that **destroys the essential links needed to jump to the post details or reply sections**  
+* 🕒 **Accurate Display**: Displays precise date and time down to the second (supports formats based on language settings).  
+* 🎯 **Supports Posts, Community, & Individual Pages**: Compatible with the "Posts" tab, the Community page, and individual post pages.  
+* 🚀 **Full SPA Support**: Automatically tracks YouTube's unique single-page navigation (no reload required) and dynamic infinite scrolling.  
+* 🛠️ **Ultra-Lightweight & Safe**: Utilizes `IntersectionObserver` to trigger background fetches only for posts currently visible on screen, preventing unnecessary server load (automatically skips during fast scrolling).  
+* 💬 **Tooltip Fallback**: Hovering over the modified timestamp reveals the original, official relative time (e.g., "2 months ago") via a native browser tooltip.  
 
 ---
 
-### 🛡️ The "0.3-second Safety Logic" designed to protect your account  
+### 📦 How to Install & Use  
 
-The 0.3-second lag you experience with this script (`YouTube Community Exact Date & Time`) is not due to slow communication or inferior code  
-It is a finely calculated "Safety Logic" built from the ground up to protect your account and preserve YouTube's native features  
+1. Install a browser extension such as [Tampermonkey](https://tampermonkey.net).  
+2. Visit [Greasy Fork](https://greasyfork.org/scripts/577630) and click the **"Install"** button.  
+3. Open YouTube's "Posts" tab (`/posts`), "Community" page (`/community`), or any individual post page (`/post/...`), and the script will automatically apply.  
 
-This script operates under a specialized, independent logic that is highly resilient against external analysis  
+---
+
+### 🛠️ Customization  
+
+You can change the date format by editing the script code directly.  
+Change the `DATE_FORMAT_LOCALE` variable value from `'auto'` to one of the following options:  
+
+* `'auto'`: Uses your browser's language setting (default)  
+* `'ja-JP'`: YYYY/MM/DD (numeric format)  
+* `'en-US'`: Month DD, YYYY (e.g., Oct 01, 2026)  
+* `'en-GB'`: DD Month YYYY (e.g., 01 Oct 2026)  
+
+```js
+// Example: Lock to JP format
+const DATE_FORMAT_LOCALE = 'ja-JP';
+```
+
+---
+
+### 🔍 How it works  
+
+Our **proprietary background analysis logic** utilizes browser intersection tracking (`IntersectionObserver`) and asynchronous processing to dynamically reconstruct and restore the raw metadata,  
+which is normally stripped or formatted by YouTube's default client rendering interface.  
+
+---
+
+### ⚠️ Risks of Instant Rewriting  
+
+#### 🕒 Why is there a "0.3-second" lag instead of being "instant"?  
+
+Some similar tools, premium or otherwise, rewrite all posting dates the exact millisecond you open the page.  
+
+At first glance, this might seem seamless and superior.  
+
+However, **this "instant" change comes at a very dangerous cost behind the scenes.**  
+Just because there is a slight lag in rewriting does not mean the script is slow or poorly coded.  
+
+In fact, it takes **an extra step of care and precision** compared to tools that just overwrite everything instantly.  
+
+To display the exact time on YouTube Community posts, tools that rewrite everything instantly are **bombarding the YouTube server with a massive burst of automated requests simultaneously.**  
+From the perspective of YouTube's anti-bot detection systems,  
+
+this looks **identical to a malicious spam bot.**  
+In the worst-case scenario, this can trigger a **ban on your precious YouTube account** or an IP address block.  
+
+Furthermore, because those tools forcefully overwrite the entire HTML element,  
+they suffer from a critical flaw that **destroys the essential links needed to jump to the post details or reply sections.**  
+
+---
+
+#### 🛡️ The "0.3-second Safety Logic" designed to protect your account  
+
+The 0.3-second lag you experience with this script (`YouTube Community Exact Date & Time`) is not due to slow communication or inferior code.  
+
+It is a finely calculated "Safety Logic" built from the ground up to protect your account and preserve YouTube's native features.  
+
+This script operates under a specialized, independent logic that is highly resilient against external analysis:  
 
 * **View-Tracking Access:**  
-No useless communication is ever made for posts hidden outside your screen. It pinpoints and detects only the posts that actually enter your viewport  
+  No useless communication is ever made for posts hidden outside your screen. It pinpoints and detects only the posts that actually enter your viewport.  
 
 * **0.3-second Human-Mimicking Delay:**  
-Only when a post stays on your screen for "0.3 seconds" (meaning the user has paused scrolling to read) does the script safely execute the process sequentially  
-Any unnecessary traffic generated while fast-scrolling through the timeline is automatically canceled  
+  Only when a post stays on your screen for "0.3 seconds" (meaning the user has paused scrolling to read) does the script safely execute the process sequentially.  
+  Any unnecessary traffic generated while fast-scrolling through the timeline is automatically canceled.  
 
-As a result, your browser behaves like a "natural human reading a page" rather than a spam bot, minimizing any ban risks to absolute zero  
-Of course, since it beautifully modifies only the text nodes without breaking the original structure, **it will never destroy YouTube's standard links**  
+As a result, your browser behaves like a "natural human reading a page" rather than a spam bot, minimizing any ban risks to absolute zero.  
+
+Of course, since it beautifully modifies only the text nodes without breaking the original structure, **it will never destroy YouTube's standard links.**  
 
 ---
 
-### 📊 Comparison: The Truth Behind Visual Deception  
+#### 📊 Comparison: The Truth Behind Visual Deception  
 
 | Evaluation Item | Existing Similar Tools (Instant) | This Script (Neon Edition) |
 | --- | --- | --- |
@@ -157,7 +228,16 @@ Of course, since it beautifully modifies only the text nodes without breaking th
 
 ## 📝 更新履歴 (Changelog)  
 
-### v1.4 (Current Release)  
+### v1.6 and later (Upcoming Tasks / Backlog)  
+
+No Tasks...  
+
+### v1.5 (Current Release)  
+
+✅ 対応ページに `/community` を追加  
+✅ ロケール設定に応じた日付フォーマット変更機能を追加  
+
+### v1.4  
 
 ✅ ツールチップで元の相対日時を表示  
 
@@ -189,7 +269,8 @@ The source code for this application is copyrighted by Neon.
   * 本スクリプトを改変・配布（フォーク）する場合は、必ず元の作者名（ねおん）およびクレジット表記を維持してください  
     If you modify or redistribute (fork) this script, you MUST retain the original author's name (Neon) and all credit notations.  
 
-※ ご利用は自己責任でお願いします（悪用できるようなものではないですが、念のため！）  
+* ご利用は自己責任でお願いします（悪用できるようなものではないですが、念のため！）  
+  Please use this script at your own risk. (It’s not designed for misuse, but just in case!)  
 
 ---
 

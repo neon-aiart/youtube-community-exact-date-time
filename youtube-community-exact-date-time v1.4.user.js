@@ -2,9 +2,9 @@
 // @name           YouTube Community Exact Date & Time
 // @name:en        YouTube Community Exact Date & Time
 // @name:ja        YouTube コミュニティ投稿日時を詳細表示
-// @description    Display exact date and time (seconds precision) on YouTube community posts by fetching source HTML dynamically.
-// @description:en Display exact date and time (seconds precision) on YouTube community posts by fetching source HTML dynamically.
-// @description:ja YouTubeのコミュニティ投稿に、ソースから取得した正確な日時（秒単位）を表示します。投稿・コミュニティ・個別ページ対応。
+// @description    Displays precise date and time (down to the second) on YouTube posts, supporting the Posts tab, Community page, and individual posts.
+// @description:en Displays precise date and time (down to the second) on YouTube posts, supporting the Posts tab, Community page, and individual posts.
+// @description:ja YYouTubeの投稿に、正確な日時（秒単位）を表示します、投稿・コミュニティ・個別ページ対応
 // @icon           data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>
 // @version        1.5
 // @author         ねおん
