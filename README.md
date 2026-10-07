@@ -1,6 +1,6 @@
 # ⚡ YouTube Community Exact Date & Time  
 
-[![Version](https://img.shields.io/badge/version-1.5-orange.svg)](https://github.com/neon-aiart/youtube-community-exact-date-time)
+[![Version](https://img.shields.io/badge/version-1.6-orange.svg)](https://github.com/neon-aiart/youtube-community-exact-date-time)
 [![License](https://img.shields.io/badge/license-PolyForm%20Noncommercial%201.0.0-blue.svg)](https://polyformproject.org/licenses/noncommercial/1.0.0/)
 
 🇯🇵  
